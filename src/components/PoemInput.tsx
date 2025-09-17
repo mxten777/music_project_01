@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { generateLyricsAndChords } from '../utils/lyricHelper';
 import { enkaPoems } from '../utils/enkaPoems';
 import { useTranslation } from 'react-i18next';
@@ -17,6 +17,10 @@ export default function PoemInput({ poem, setPoem, setResult }: Props) {
   const tooShort = poem.trim().length > 0 && poem.trim().length < minLen;
   const tooLong = poem.length > maxLen;
 
+  useEffect(() => {
+    console.log('[DEBUG] PoemInput 렌더링, poem:', poem);
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -32,46 +36,61 @@ export default function PoemInput({ poem, setPoem, setResult }: Props) {
   };
 
   return (
-  <form onSubmit={handleSubmit} className="mb-6 bg-white/90 dark:bg-gray-800/80 rounded-xl shadow-lg p-4 sm:p-6 transition-all duration-300 animate-fadein border border-gray-100 dark:border-gray-700 max-w-xl mx-auto">
-      <label htmlFor="poem-input" className="block text-sm font-medium text-gray-700 mb-1 sr-only">
+  <form onSubmit={handleSubmit} style={{background: 'var(--color-card)', backdropFilter: 'var(--color-blur)'}} className="mb-8 rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-500 animate-fadein max-w-2xl mx-auto hover:shadow-2xl hover:scale-[1.015] focus-within:shadow-2xl focus-within:scale-[1.01]" role="form" aria-labelledby="poem-form-heading">
+      {/* 디버깅: PoemInput 렌더링 */}
+  <label htmlFor="poem-input" className="block text-sm font-medium mb-1 sr-only" style={{color: 'var(--color-text-secondary)'}}>
         {t('input_placeholder')}
       </label>
       <textarea
         id="poem-input"
-  className="w-full h-32 sm:h-40 p-2 border rounded mb-1 text-base sm:text-lg resize-y bg-white dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200 hover:shadow-md"
+        className="w-full h-32 sm:h-40 p-3 border-2 rounded-xl mb-2 text-base sm:text-lg resize-y transition-all duration-200 shadow-inner focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 hover:shadow-lg"
+        style={{background: 'var(--color-card)', color: 'var(--color-text)'}} 
         placeholder={t('input_placeholder')}
         value={poem}
         onChange={e => setPoem(e.target.value)}
         required
-  aria-label={t('input_placeholder')}
-  autoFocus
+        aria-label={t('input_placeholder')}
+        aria-required="true"
+        aria-describedby="poem-charcount poem-error"
+        aria-invalid={tooShort || tooLong}
+        autoFocus
         maxLength={maxLen}
       />
-  <div className="text-right text-xs text-gray-400 dark:text-gray-300 mb-1" aria-live="polite">{t('char_count', { count: poem.length })}</div>
-      {tooShort && (
-        <div className="text-xs text-red-500 mb-1">{t('too_short')}</div>
-      )}
-      {tooLong && (
-        <div className="text-xs text-red-500 mb-1">{t('too_long')}</div>
-      )}
-  <div className="flex flex-col sm:flex-row gap-2 mt-2">
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-blue-200 dark:disabled:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 hover:scale-105 hover:bg-blue-600 dark:hover:bg-blue-400"
-          disabled={loading || poem.trim().length < minLen || tooLong}
-          aria-label={t('convert')}
-        >
-          {loading ? t('convert') + '...' : t('convert')}
-        </button>
-        <button
-          type="button"
-          className="px-4 py-2 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white rounded border focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 hover:scale-105 hover:bg-gray-300 dark:hover:bg-gray-600"
-          onClick={handleExample}
-          aria-label={t('example')}
-        >
-          {t('example')}
-        </button>
+  <div id="poem-charcount" className="text-right text-xs mb-1" style={{color: 'var(--color-text-secondary)'}} aria-live="polite">{t('char_count', { count: poem.length })}</div>
+      <div id="poem-error" aria-live="assertive">
+        {tooShort && (
+          <div className="flex items-center gap-1 text-xs mb-1 animate-pulse" style={{color: 'var(--color-danger)'}}>
+            <span aria-hidden>⚠️</span>{t('too_short', '5자 이상 입력하세요.')}
+          </div>
+        )}
+        {tooLong && (
+          <div className="flex items-center gap-1 text-xs mb-1 animate-pulse" style={{color: 'var(--color-danger)'}}>
+            <span aria-hidden>⚠️</span>{t('too_long', '500자 이하로 입력하세요.')}
+          </div>
+        )}
       </div>
+        <div className="flex flex-col sm:flex-row gap-2 mt-2">
+          <button
+            type="submit"
+            className="px-4 py-2 rounded-xl font-semibold shadow-lg transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/40 text-base disabled:opacity-60 flex items-center justify-center gap-2 hover:scale-[1.04] active:scale-95"
+            style={{background: 'var(--color-primary)', color: 'var(--color-btn-text)'}} 
+            disabled={loading || poem.trim().length < minLen || tooLong}
+            aria-label={t('convert', 'AI 작사·작곡')}
+          >
+            {loading ? (
+              <span className="flex items-center gap-1 animate-pulse"><span className="inline-block w-3 h-3 rounded-full bg-white animate-bounce" />{t('loading', '생성 중...')}</span>
+            ) : t('convert', 'AI 작사·작곡')}
+          </button>
+          <button
+            type="button"
+            className="px-4 py-2 rounded-xl border shadow-lg transition-all duration-200 text-base font-medium focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 hover:scale-[1.04] active:scale-95"
+            style={{background: 'var(--color-bg-secondary)', color: 'var(--color-text)'}} 
+            onClick={handleExample}
+            aria-label={t('example', '예시 불러오기')}
+          >
+            {t('example', '예시 불러오기')}
+          </button>
+        </div>
     </form>
   );
 }

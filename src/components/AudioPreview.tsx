@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type Props = {
   url: string;
@@ -6,9 +6,12 @@ type Props = {
 
 export default function AudioPreview({ url }: Props) {
   const [audioError, setAudioError] = useState(false);
+  useEffect(() => {
+    console.log('[DEBUG] AudioPreview 렌더링', { url });
+  });
   return (
-  <div className="mb-4 bg-white/90 dark:bg-gray-800/80 rounded-xl shadow-lg p-4 sm:p-6 transition-all duration-300 animate-fadein max-w-xl mx-auto">
-  <h2 className="font-semibold mb-2 text-gray-900 dark:text-white" id="audio-preview-heading">🎶 멜로디 프리뷰</h2>
+  <div style={{background: 'var(--color-card)', backdropFilter: 'var(--color-blur)'}} className="mb-8 rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-500 animate-fadein hover:shadow-2xl hover:scale-[1.015]" role="region" aria-labelledby="audio-preview-heading">
+  <h2 className="font-semibold mb-2" style={{color: 'var(--color-accent)'}} id="audio-preview-heading">🎶 멜로디 프리뷰</h2>
       {url ? (
         <>
           <audio
@@ -18,14 +21,15 @@ export default function AudioPreview({ url }: Props) {
             aria-label="멜로디 오디오 프리뷰"
             aria-describedby="audio-preview-heading"
             onError={() => setAudioError(true)}
+            tabIndex={0}
           />
           {audioError && (
-            <div className="text-xs text-red-500 mb-2">오디오를 재생할 수 없습니다. 네트워크 또는 파일 문제일 수 있습니다.</div>
+            <div className="text-xs mb-2" style={{color: 'var(--color-danger)'}} role="alert" aria-live="assertive">오디오를 재생할 수 없습니다. 네트워크 또는 파일 문제일 수 있습니다.</div>
           )}
-          <a href={url} download className="inline-block px-3 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 rounded border border-blue-200 dark:border-blue-700 hover:bg-blue-200 dark:hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 hover:scale-105 shadow-sm" aria-label="오디오 다운로드">오디오 다운로드</a>
+            <a href={url} download className="inline-block px-3 py-1 text-xs rounded-xl border shadow-lg transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 hover:scale-[1.04] active:scale-95" style={{background: 'var(--color-bg-secondary)', color: 'var(--color-accent)', borderColor: 'var(--color-accent)'}} aria-label="오디오 다운로드" tabIndex={0}>오디오 다운로드</a>
         </>
       ) : (
-        <div className="text-gray-400 dark:text-gray-300 text-sm" aria-live="polite">멜로디 오디오가 없습니다.</div>
+  <div className="text-sm" style={{color: 'var(--color-text-secondary)'}} aria-live="polite">멜로디 오디오가 없습니다.</div>
       )}
     </div>
   );

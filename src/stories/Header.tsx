@@ -1,56 +1,51 @@
-// ...existing code...
+import { useState } from 'react';
 
-import { Button } from './Button';
-import './header.css';
+export default function Header() {
+  const [open, setOpen] = useState(false);
+  const [isDark, setIsDark] = useState(() => {
+    return typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+  });
+  const toggleDark = () => {
+    document.documentElement.classList.toggle('dark');
+    setIsDark(document.documentElement.classList.contains('dark'));
+  };
 
-type User = {
-  name: string;
-};
-
-export interface HeaderProps {
-  user?: User;
-  onLogin?: () => void;
-  onLogout?: () => void;
-  onCreateAccount?: () => void;
+  return (
+    <header className="w-full px-4 py-3 flex items-center justify-between bg-white/80 dark:bg-gray-900/80 shadow-lg fixed top-0 left-0 z-40 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 transition-all duration-300">
+      <a href="#main" className="font-bold text-lg text-blue-600 dark:text-blue-300 tracking-tight focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition" tabIndex={0} aria-label="홈으로 이동">
+        뮤지코딩 <span className="hidden sm:inline">AI</span>
+      </a>
+      {/* 데스크탑 내비게이션 */}
+      <nav className="hidden md:flex gap-4 text-sm items-center">
+        <a href="#main" className="hover:underline text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition" tabIndex={0}>메인</a>
+        <a href="#feedback" className="hover:underline text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition" tabIndex={0}>피드백</a>
+        <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="hover:underline text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition" tabIndex={0}>GitHub</a>
+      </nav>
+      {/* 다크모드 토글 버튼 */}
+      <button
+        onClick={toggleDark}
+        className="absolute right-6 top-1/2 -translate-y-1/2 px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 border border-gray-400 dark:border-gray-600 shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-200 text-base font-semibold"
+        aria-label="다크모드 토글"
+        style={{ zIndex: 30 }}
+      >
+        {isDark ? '☀️ 라이트' : '🌙 다크'}
+      </button>
+      {/* 모바일 메뉴 버튼 */}
+      <button className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-700 dark:text-gray-200" aria-label="메뉴 열기" onClick={() => setOpen(o => !o)}>
+        <span className="sr-only">메뉴</span>
+        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      {/* 모바일 내비게이션 드로어 */}
+      {open && (
+        <div className="fixed inset-0 z-50 bg-black/40 flex justify-end md:hidden animate-fadein" onClick={() => setOpen(false)}>
+          <nav className="bg-white dark:bg-gray-900 w-48 h-full shadow-lg flex flex-col py-8 px-6 gap-4 animate-slidein" onClick={e => e.stopPropagation()} aria-label="모바일 메뉴">
+            <button className="self-end mb-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-2xl focus:outline-none" aria-label="메뉴 닫기" onClick={() => setOpen(false)}>×</button>
+            <a href="#main" className="py-2 hover:underline text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition" tabIndex={0} onClick={() => setOpen(false)}>메인</a>
+            <a href="#feedback" className="py-2 hover:underline text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition" tabIndex={0} onClick={() => setOpen(false)}>피드백</a>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="py-2 hover:underline text-gray-700 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 rounded transition" tabIndex={0} onClick={() => setOpen(false)}>GitHub</a>
+          </nav>
+        </div>
+      )}
+    </header>
+  );
 }
-
-export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps) => (
-  <header>
-    <div className="storybook-header">
-      <div>
-        <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" fillRule="evenodd">
-            <path
-              d="M10 0h12a10 10 0 0110 10v12a10 10 0 01-10 10H10A10 10 0 010 22V10A10 10 0 0110 0z"
-              fill="#FFF"
-            />
-            <path
-              d="M5.3 10.6l10.4 6v11.1l-10.4-6v-11zm11.4-6.2l9.7 5.5-9.7 5.6V4.4z"
-              fill="#555AB9"
-            />
-            <path
-              d="M27.2 10.6v11.2l-10.5 6V16.5l10.5-6zM15.7 4.4v11L6 10l9.7-5.5z"
-              fill="#91BAF8"
-            />
-          </g>
-        </svg>
-        <h1>Acme</h1>
-      </div>
-      <div>
-        {user ? (
-          <>
-            <span className="welcome">
-              Welcome, <b>{user.name}</b>!
-            </span>
-            <Button size="small" onClick={onLogout} label="Log out" />
-          </>
-        ) : (
-          <>
-            <Button size="small" onClick={onLogin} label="Log in" />
-            <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
-          </>
-        )}
-      </div>
-    </div>
-  </header>
-);

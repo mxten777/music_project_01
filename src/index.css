@@ -1,3 +1,57 @@
+
+/* 컬러 시스템: Tailwind 기반 CSS 변수 */
+:root {
+  --color-bg: linear-gradient(135deg, #f1f5fa 0%, #e3e8f0 100%);
+  --color-bg-secondary: rgba(255,255,255,0.7);
+  --color-card: rgba(255,255,255,0.85);
+  --color-blur: blur(8px);
+  --color-text: #222;
+  --color-text-secondary: #64748b;
+  --color-primary: #6366f1;
+  --color-accent: #0ea5e9;
+  --color-danger: #f43f5e;
+  --color-success: #22c55e;
+  --color-warning: #fbbf24;
+  /* --color-border: #a3e635; */
+  --color-card: #fff;
+  --color-link: #6366f1;
+  --color-link-hover: #f43f5e;
+  --color-btn-bg: #1a1a1a;
+  --color-btn-text: #fff;
+  --color-btn-hover: #6366f1;
+  --color-btn-active: #312e81;
+}
+
+[data-theme="dark"], html.dark {
+  --color-bg: linear-gradient(135deg, #18181b 0%, #23272f 100%);
+  --color-bg-secondary: rgba(36,37,46,0.7);
+  --color-card: rgba(36,37,46,0.85);
+  --color-blur: blur(10px);
+  --color-text: #f4f4f5;
+  --color-text-secondary: #a1a1aa;
+  --color-primary: #6366f1;
+  --color-accent: #38bdf8;
+  --color-danger: #f472b6;
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  /* --color-border: #6366f1; */
+  --color-card: #23272f;
+  --color-link: #a5b4fc;
+  --color-link-hover: #f472b6;
+  --color-btn-bg: #27272a;
+  --color-btn-text: #f4f4f5;
+  --color-btn-hover: #6366f1;
+  --color-btn-active: #18181b;
+}
+
+
+/* 접근성: 포커스 링, 명도 대비 강화 */
+a:focus, button:focus, input:focus, textarea:focus {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px #fde68a99;
+  z-index: 2;
+}
 @keyframes fadein {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: none; }
@@ -13,18 +67,71 @@ a:hover {
   color: #535bf2;
 }
 
+
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  width: 100vw;
+  background: var(--color-bg);
+  font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', 'sans-serif';
+  color: var(--color-text);
+  transition: background 0.3s, color 0.3s;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+
+#root {
+  width: 100vw;
+  min-height: 100vh;
+  backdrop-filter: var(--color-blur);
 }
+
+
+/* 폰트 계층 및 컬러 시스템 */
+a, h1, h2, h3, h4, h5, h6, p {
+  border: none !important;
+}
+a, h1, h2, h3, h4, h5, h6, p, #root, body {
+  border: none !important;
+  border-color: transparent !important;
+  border-style: none !important;
+  border-width: 0 !important;
+}
+h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: var(--color-danger);
+}
+h3, h4, h5, h6 {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 500;
+  color: var(--color-success);
+}
+p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+a {
+  color: var(--color-link);
+  text-decoration: underline;
+  /* border-bottom: 1px dashed var(--color-link); 디버깅용 */
+  transition: color 0.2s, border-bottom 0.2s;
+}
+a:hover {
+  color: var(--color-link-hover);
+  /* border-bottom: 2px solid var(--color-link-hover); */
+}
+
 
 button {
   border-radius: 8px;
@@ -33,16 +140,70 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-btn-bg);
+  color: var(--color-btn-text);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, background 0.2s, color 0.2s, transform 0.15s;
+  box-shadow: 0 2px 8px 0 #0001;
+  /* border-bottom: 2px solid var(--color-primary); 디버깅용 */
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-primary);
+  background: var(--color-btn-hover);
+  color: #fff;
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 4px 16px 0 #6366f133;
+}
+button:active {
+  background: var(--color-btn-active);
+  color: var(--color-link);
+  transform: scale(0.98);
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+  outline-color: var(--color-primary);
+}
+
+/* 카드형 요소(디버깅용) */
+
+/* 카드형 요소 인터랙션/애니메이션 고도화 */
+
+/* 버튼 인터랙션 고도화 */
+button {
+  transition: border-color 0.25s, background 0.2s, color 0.2s, transform 0.15s, box-shadow 0.18s cubic-bezier(0.4,0,0.2,1);
+  will-change: background, color, border-color, transform, box-shadow;
+}
+button:hover, button:focus-visible {
+  border-color: var(--color-primary);
+  background: var(--color-btn-hover);
+  color: #fff;
+  transform: scale(1.06) translateY(-2px);
+  box-shadow: 0 4px 16px 0 var(--color-primary, #6366f133);
+}
+button:active {
+  background: var(--color-btn-active);
+  color: var(--color-link);
+  transform: scale(0.97);
+}
+
+/* 링크 인터랙션 고도화 */
+a {
+  transition: color 0.2s, border-bottom 0.2s, box-shadow 0.18s cubic-bezier(0.4,0,0.2,1), transform 0.15s;
+  will-change: color, border-bottom, box-shadow, transform;
+}
+a:hover, a:focus-visible {
+  color: var(--color-link-hover);
+  /* border-bottom: 2px solid var(--color-link-hover); */
+  box-shadow: 0 2px 8px 0 var(--color-link-hover, #f43f5e22);
+  transform: scale(1.03);
+}
+a {
+  transition: color 0.2s, border-bottom 0.2s;
+}
+a:hover {
+  color: #f43f5e;
+  /* border-bottom: 2px solid #f43f5e; */
 }
 
 @media (prefers-color-scheme: light) {
