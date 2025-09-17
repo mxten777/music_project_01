@@ -36,15 +36,15 @@ export default function PoemInput({ poem, setPoem, setResult }: Props) {
   };
 
   return (
-  <form onSubmit={handleSubmit} style={{background: 'var(--color-card)', backdropFilter: 'var(--color-blur)'}} className="mb-8 rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-500 animate-fadein max-w-2xl mx-auto hover:shadow-2xl hover:scale-[1.015] focus-within:shadow-2xl focus-within:scale-[1.01]" role="form" aria-labelledby="poem-form-heading">
+  <form onSubmit={handleSubmit} style={{background: 'rgba(250,218,221,0.25)', backdropFilter: 'blur(10px)'}} className="mb-8 rounded-3xl shadow-2xl p-8 sm:p-14 transition-all duration-500 animate-fadein max-w-3xl w-full mx-auto border border-[rgba(250,218,221,0.45)] hover:shadow-pink-200/60 focus-within:shadow-pink-300/70 hover:scale-[1.018] focus-within:scale-[1.01]" role="form" aria-labelledby="poem-form-heading">
       {/* 디버깅: PoemInput 렌더링 */}
   <label htmlFor="poem-input" className="block text-sm font-medium mb-1 sr-only" style={{color: 'var(--color-text-secondary)'}}>
         {t('input_placeholder')}
       </label>
       <textarea
         id="poem-input"
-        className="w-full h-32 sm:h-40 p-3 border-2 rounded-xl mb-2 text-base sm:text-lg resize-y transition-all duration-200 shadow-inner focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/30 hover:shadow-lg"
-        style={{background: 'var(--color-card)', color: 'var(--color-text)'}} 
+        className="w-full h-40 sm:h-56 p-6 border-0 rounded-2xl mb-4 text-lg sm:text-xl resize-y transition-all duration-200 shadow-inner focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 hover:shadow-pink-100/40 bg-white/80 dark:bg-gray-800/80"
+        style={{color: 'var(--color-text)', fontFamily: 'inherit'}} 
         placeholder={t('input_placeholder')}
         value={poem}
         onChange={e => setPoem(e.target.value)}
@@ -69,11 +69,10 @@ export default function PoemInput({ poem, setPoem, setResult }: Props) {
           </div>
         )}
       </div>
-        <div className="flex flex-col sm:flex-row gap-2 mt-2">
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <button
             type="submit"
-            className="px-4 py-2 rounded-xl font-semibold shadow-lg transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/40 text-base disabled:opacity-60 flex items-center justify-center gap-2 hover:scale-[1.04] active:scale-95"
-            style={{background: 'var(--color-primary)', color: 'var(--color-btn-text)'}} 
+            className="px-8 py-4 rounded-2xl font-bold shadow-lg transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 text-lg sm:text-xl disabled:opacity-60 flex items-center justify-center gap-2 hover:scale-[1.04] active:scale-95 bg-pink-200/80 text-[#222] hover:bg-pink-300/90"
             disabled={loading || poem.trim().length < minLen || tooLong}
             aria-label={t('convert', 'AI 작사·작곡')}
           >
@@ -83,8 +82,7 @@ export default function PoemInput({ poem, setPoem, setResult }: Props) {
           </button>
           <button
             type="button"
-            className="px-4 py-2 rounded-xl border shadow-lg transition-all duration-200 text-base font-medium focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 hover:scale-[1.04] active:scale-95"
-            style={{background: 'var(--color-bg-secondary)', color: 'var(--color-text)'}} 
+            className="px-8 py-4 rounded-2xl border shadow-lg transition-all duration-200 text-lg sm:text-xl font-bold focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 hover:scale-[1.04] active:scale-95 bg-white/80 dark:bg-gray-800/80 text-[#222] dark:text-gray-100 border-pink-200/60"
             onClick={handleExample}
             aria-label={t('example', '예시 불러오기')}
           >

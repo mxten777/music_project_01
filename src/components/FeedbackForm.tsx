@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export default function FeedbackForm() {
@@ -30,8 +30,8 @@ export default function FeedbackForm() {
   };
 
   return (
-  <div style={{background: 'var(--color-card)', backdropFilter: 'var(--color-blur)'}} className="mt-12 border-t pt-8 rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-500 animate-fadein hover:shadow-2xl hover:scale-[1.015]" role="region" aria-labelledby="feedback-form-heading">
-  <h3 id="feedback-form-heading" className="font-semibold mb-2 text-base" style={{color: 'var(--color-accent)'}}>
+  <div style={{background: 'rgba(250,218,221,0.18)', backdropFilter: 'blur(8px)'}} className="mt-12 border-t pt-8 rounded-3xl shadow-2xl p-6 sm:p-10 transition-all duration-500 animate-fadein hover:shadow-pink-200/60 hover:scale-[1.018]" role="region" aria-labelledby="feedback-form-heading">
+  <h3 id="feedback-form-heading" className="font-semibold mb-2 text-base" style={{color: 'var(--color-japan-red)'}}>
         {t('feedback_title', '피드백 보내기')}
       </h3>
       {sent ? (
@@ -41,8 +41,8 @@ export default function FeedbackForm() {
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col gap-2" role="form" aria-labelledby="feedback-form-heading">
             <textarea
-              className="w-full h-20 p-3 border-2 rounded-xl mb-2 text-base resize-y transition-all duration-200 shadow-inner focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/30 hover:shadow-lg font-medium"
-              style={{background: 'var(--color-card)', color: 'var(--color-text)'}} 
+              className="w-full h-20 p-4 border-0 rounded-2xl mb-2 text-base resize-y transition-all duration-200 shadow-inner focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 hover:shadow-pink-100/40 bg-white/80 dark:bg-gray-800/80 font-medium"
+              style={{color: 'var(--color-text)', fontFamily: 'inherit'}} 
               placeholder={t('feedback_placeholder', '의견, 버그, 개선점 등을 자유롭게 남겨주세요.')}
               value={value}
               onChange={e => setValue(e.target.value)}
@@ -66,8 +66,7 @@ export default function FeedbackForm() {
             </div>
             <button
               type="submit"
-              className="self-end px-4 py-2 rounded-xl font-semibold shadow-lg transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-success/40 text-base disabled:opacity-60 flex items-center gap-2 hover:scale-[1.04] active:scale-95"
-              style={{background: 'var(--color-success)', color: '#fff'}} 
+              className="self-end px-6 py-2 rounded-2xl font-semibold shadow-lg transition-all duration-200 focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 text-base disabled:opacity-60 flex items-center gap-2 hover:scale-[1.04] active:scale-95 bg-pink-200/80 text-[#222] hover:bg-pink-300/90"
               disabled={value.trim().length < minLen || tooLong}
               aria-label={t('feedback_submit', '제출')}
             >

@@ -27,11 +27,11 @@ export default function FeedbackList() {
     console.log('[DEBUG] FeedbackList 렌더링', { feedbacks });
   });
   return (
-  <div style={{background: 'var(--color-card)', backdropFilter: 'var(--color-blur)'}} className="mt-12 rounded-2xl shadow-xl p-6 sm:p-8 transition-all duration-500 animate-fadein hover:shadow-2xl hover:scale-[1.015]" role="region" aria-labelledby="feedback-list-heading">
-  <h4 id="feedback-list-heading" className="font-semibold mb-2 text-sm" style={{color: 'var(--color-accent)'}}>피드백 목록</h4>
+  <div style={{background: 'rgba(250,218,221,0.13)', backdropFilter: 'blur(8px)'}} className="mt-12 rounded-3xl shadow-2xl p-6 sm:p-10 transition-all duration-500 animate-fadein hover:shadow-pink-200/60 hover:scale-[1.018]" role="region" aria-labelledby="feedback-list-heading">
+  <h4 id="feedback-list-heading" className="font-semibold mb-2 text-sm" style={{color: 'var(--color-japan-red)'}}>피드백 목록</h4>
       <ul className="space-y-4">
         {feedbacks.map((fb, i) => (
-          <li key={i} className="p-4 rounded-xl shadow-md bg-white/70 dark:bg-gray-900/70 border border-gray-100 dark:border-gray-800 transition-all duration-300 hover:shadow-xl hover:scale-[1.01]" style={{backdropFilter: 'blur(4px)'}} tabIndex={0} aria-label={`피드백 ${i+1}: ${fb.text}`}> 
+          <li key={i} className="p-4 rounded-2xl shadow-md bg-white/90 dark:bg-gray-900/80 border border-pink-100/60 dark:border-pink-200/20 transition-all duration-300 hover:shadow-pink-200/40 hover:scale-[1.012]" style={{backdropFilter: 'blur(4px)'}} tabIndex={0} aria-label={`피드백 ${i+1}: ${fb.text}`}> 
             <div className="text-xs mb-1" style={{color: 'var(--color-text-secondary)'}}>{new Date(fb.date).toLocaleString()}</div>
             <div className="text-sm whitespace-pre-line" style={{color: 'var(--color-text)'}}>{fb.text}</div>
           </li>

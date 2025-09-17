@@ -48,16 +48,16 @@ export default function Header() {
         >
           {/* 드로어 패널 */}
           <nav
-            className="relative w-60 max-w-[92vw] h-full flex flex-col bg-white dark:bg-gray-900 shadow-2xl rounded-l-2xl border-l border-black/10 dark:border-white/10 z-50 animate-slidein"
-            style={{marginTop: 'env(safe-area-inset-top, 0px)'}}
+            className="relative w-60 max-w-[92vw] h-full flex flex-col bg-pink-50/90 dark:bg-pink-200/10 shadow-2xl rounded-l-3xl border-l border-pink-100/60 dark:border-pink-200/20 z-50 animate-slidein"
+            style={{marginTop: 'env(safe-area-inset-top, 0px)', backdropFilter: 'blur(8px)'}}
             onClick={e => e.stopPropagation()}
             aria-label="모바일 메뉴"
           >
             {/* 상단 헤더 */}
-            <div className="flex items-center justify-between px-2 py-1 border-b border-black/10 dark:border-white/10 bg-white dark:bg-gray-900">
-              <span className="font-extrabold text-base tracking-tight" style={{color: 'var(--color-accent)'}}>뮤지코딩</span>
+            <div className="flex items-center justify-between px-2 py-1 border-b border-pink-100/60 dark:border-pink-200/20 bg-pink-50/90 dark:bg-pink-200/10">
+              <span className="font-extrabold text-base tracking-tight" style={{color: 'var(--color-japan-red)'}}>뮤지코딩</span>
               <button
-                className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-base focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 rounded transition hover:scale-110 active:scale-95 focus:shadow-accent/30"
+                className="text-gray-400 hover:text-pink-600 dark:hover:text-pink-200 text-base focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 rounded transition hover:scale-110 active:scale-95 focus:shadow-pink-200/30"
                 aria-label="메뉴 닫기"
                 onClick={() => setOpen(false)}
                 style={{background: 'none', boxShadow: 'none', border: 'none', lineHeight: 1}}
@@ -67,10 +67,10 @@ export default function Header() {
             </div>
             {/* 메뉴 항목 */}
             <div className="flex justify-center px-0 pt-0 pb-0">
-              <div className="w-full max-w-[96%] bg-white dark:bg-gray-900 shadow-md flex flex-col divide-y divide-black/10 dark:divide-white/10 mt-0">
-                <a href="#main" className="py-2 px-2 text-base font-semibold focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 transition hover:bg-accent/10 active:bg-accent/20" style={{color: 'var(--color-text)'}} tabIndex={0} onClick={() => setOpen(false)}>메인</a>
-                <a href="#feedback" className="py-2 px-2 text-base font-semibold focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 transition hover:bg-accent/10 active:bg-accent/20" style={{color: 'var(--color-text)'}} tabIndex={0} onClick={() => setOpen(false)}>피드백</a>
-                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="py-2 px-2 text-base font-semibold focus:outline-none focus-visible:ring-4 focus-visible:ring-accent/40 transition hover:bg-accent/10 active:bg-accent/20 rounded-b-2xl" style={{color: 'var(--color-text)'}} tabIndex={0} onClick={() => setOpen(false)}>GitHub</a>
+              <div className="w-full max-w-[96%] bg-white/90 dark:bg-gray-900/80 shadow-md flex flex-col divide-y divide-pink-100/60 dark:divide-pink-200/20 mt-0 rounded-b-2xl">
+                <a href="#main" className="py-3 px-3 text-base font-semibold focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 transition hover:bg-pink-100/60 dark:hover:bg-pink-200/10 active:bg-pink-200/20 rounded-t-2xl" style={{color: 'var(--color-japan-red)'}} tabIndex={0} onClick={() => setOpen(false)}>메인</a>
+                <a href="#feedback" className="py-3 px-3 text-base font-semibold focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 transition hover:bg-pink-100/60 dark:hover:bg-pink-200/10 active:bg-pink-200/20" style={{color: 'var(--color-japan-red)'}} tabIndex={0} onClick={() => setOpen(false)}>피드백</a>
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="py-3 px-3 text-base font-semibold focus:outline-none focus-visible:ring-4 focus-visible:ring-pink-200/60 transition hover:bg-pink-100/60 dark:hover:bg-pink-200/10 active:bg-pink-200/20 rounded-b-2xl" style={{color: 'var(--color-japan-red)'}} tabIndex={0} onClick={() => setOpen(false)}>GitHub</a>
               </div>
             </div>
           </nav>

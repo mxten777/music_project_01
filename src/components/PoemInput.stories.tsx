@@ -1,15 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react';
+// import type { Meta, StoryObj } from '@storybook/react';
+type Meta = any;
+type StoryObj = any;
 import PoemInput from './PoemInput';
 import { useState } from 'react';
 
-const meta: Meta<typeof PoemInput> = {
+const meta: Meta = {
   title: 'Components/PoemInput',
   component: PoemInput,
   tags: ['autodocs'],
 };
 export default meta;
 
-type Story = StoryObj<typeof PoemInput>;
+type Story = StoryObj;
 
 const Wrapper = (args: any) => {
   const [poem, setPoem] = useState('');
@@ -29,6 +31,6 @@ const Wrapper = (args: any) => {
 };
 
 export const Default: Story = {
-  render: (args) => <Wrapper {...args} />,
+  render: (args: any) => <Wrapper {...args} />,
   args: {},
 };

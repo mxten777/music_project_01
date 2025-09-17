@@ -5,19 +5,12 @@ import './i18n';
 import UsageGuideModal from './components/UsageGuideModal';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 function App() {
-  const [isDark, setIsDark] = useState(() => {
-    return document.documentElement.classList.contains('dark');
-  });
   useEffect(() => {
     console.log('[DEBUG] App 렌더링');
   });
-  const toggleDark = () => {
-    document.documentElement.classList.toggle('dark');
-    setIsDark(document.documentElement.classList.contains('dark'));
-  };
   return (
   <div className="min-h-screen w-full bg-white dark:bg-gray-900 transition-colors duration-300 flex flex-col">
       <Header />
